@@ -7,6 +7,9 @@
   "directories": {
     "test": "src/test"
   },
+  "engines": {
+    "node": ">=20.x"
+  },
   "scripts": {
     "build": "tsc",
     "start": "node dist/index.js",
