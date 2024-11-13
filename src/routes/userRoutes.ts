@@ -1,6 +1,6 @@
 import { FastifyInstance } from 'fastify';
 import UserController from '../controllers/userController.js';
-import { createUserSchema } from '../validators/userValidator.js';
+import { createUserSchema, getUserSchema, updateUserSchema, deleteUserSchema } from '../validators/userValidator.js';
 
 export default async function userRoutes(fastify: FastifyInstance) {
     const userController = new UserController();
@@ -12,5 +12,38 @@ export default async function userRoutes(fastify: FastifyInstance) {
         handler: userController.createUser,
     });
 
-    // Здесь можно добавить другие маршруты (GET, PATCH, DELETE)
+    fastify.route({
+        method: 'GET',
+        url: '/get',
+        schema: getUserSchema,
+        handler: userController.getUsers,
+    });
+
+    fastify.route({
+        method: 'GET',
+        url: '/get/:id',
+        schema: getUserSchema,
+        handler: userController.getUserById,
+    });
+
+    fastify.route({
+        method: 'PATCH',
+        url: '/update/:id',
+        schema: updateUserSchema,
+        handler: userController.updateUser,
+    });
+
+    fastify.route({
+        method: 'DELETE',
+        url: '/delete/:id',
+        schema: deleteUserSchema,
+        handler: userController.deleteUserById,
+    });
+
+    fastify.route({
+        method: 'DELETE',
+        url: '/delete',
+        schema: deleteUserSchema,
+        handler: userController.deleteAllUsers,
+    });
 }
